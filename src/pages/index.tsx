@@ -1,23 +1,36 @@
+import { useForm } from 'react-hook-form'
+
 export const Index = () => {
+  const { handleSubmit, register } = useForm()
+
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <div>aa</div>
-      <input
-        className="input input-bordered input-sm w-full max-w-xs"
-        type="text"
-        placeholder="RSS Feed URL"
-      />
-      <input
-        className="input input-bordered input-sm w-full max-w-xs"
-        type="text"
-        placeholder="RSS Feed URL"
-      />
-      <input
-        className="input input-bordered input-sm w-full max-w-xs"
-        type="text"
-        placeholder="RSS Feed URL"
-      />
-      <button className="btn btn-primary">Next</button>
+    <div className="p-4">
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={handleSubmit((data) => {
+          console.log(data)
+        })}
+      >
+        <input
+          className="input input-bordered input-sm w-full"
+          type="text"
+          placeholder="RSS Feed URL"
+          {...register('url1')}
+        />
+        <input
+          className="input input-bordered input-sm w-full"
+          type="text"
+          placeholder="RSS Feed URL"
+          {...register('url2')}
+        />
+        <input
+          className="input input-bordered input-sm w-full"
+          type="text"
+          placeholder="RSS Feed URL"
+          {...register('url3')}
+        />
+        <button className="btn btn-primary">Next</button>
+      </form>
     </div>
   )
 }
