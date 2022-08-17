@@ -5,6 +5,7 @@ import {
 } from 'discord-interactions'
 import { NextApiHandler } from 'next'
 import getRawBody from 'raw-body'
+import { HasGuildCommands } from './HasGuildCommands'
 
 const CLIENT_KEY =
   '43538a840f95ea1ef19a84839ad689b33aff412c91e0140ae84921dec905a04a'
@@ -17,6 +18,8 @@ export const config = {
 
 export const interactions: NextApiHandler = async (req, res) => {
   const { headers, method } = req
+
+  console.log(req)
 
   // Validate request
   if (method !== 'POST') {
@@ -39,6 +42,9 @@ export const interactions: NextApiHandler = async (req, res) => {
   const { type, id, data } = JSON.parse(buf.toString())
 
   if (type === InteractionType.PING) {
+    console.log('ping!')
+    // HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [TEST_COMMAND])
+
     return res.send({ type: InteractionResponseType.PONG })
   }
 
@@ -55,4 +61,10 @@ export const interactions: NextApiHandler = async (req, res) => {
   }
 
   return res.status(200).json({ message: 'Hello World' })
+}
+
+export const TEST_COMMAND = {
+  name: 'test',
+  description: 'Basic guild command',
+  type: 1,
 }
